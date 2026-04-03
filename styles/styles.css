@@ -248,3 +248,94 @@ body[data-theme="db"] #final-msg {
     display: inline-block;
     border-radius: 8px;
 }
+/* =========================================
+   DISEÑO RESPONSIVO DEFINITIVO
+   ========================================= */
+
+@media (max-width: 768px) {
+    /* Forzamos que el contenedor ocupe todo el ancho sin márgenes locos */
+    .container {
+        width: 100vw;
+        padding: 10px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* Achicamos el reloj para que quepa siempre */
+    #timer-display {
+        font-size: 5.5rem; /* Ajustado para que no se salga */
+        letter-spacing: -2px;
+        margin: 10px 0;
+        width: 100%;
+    }
+
+    #round-display {
+        font-size: 2rem;
+        margin-top: 20px;
+    }
+
+    /* AJUSTE DE BOTONES: Uno debajo del otro y grandes */
+    .controls {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        width: 90%; /* Que ocupen casi todo el ancho del cel */
+        margin: 20px auto;
+    }
+
+    button {
+        width: 100% !important; /* Forzamos el ancho completo */
+        font-size: 1.2rem !important; /* Letra más grande para leer mejor */
+        padding: 15px !important; /* Más espacio para el dedo */
+        margin: 0 !important;
+        box-sizing: border-box;
+    }
+
+    /* Paneles de vidrio: que no se crucen */
+    .glass-panel, .ticker-admin, .qr-admin {
+        width: 90% !important;
+        flex-direction: column;
+        gap: 10px;
+        padding: 15px !important;
+        margin-bottom: 15px;
+    }
+
+    input[type="text"] {
+        width: 100% !important;
+        box-sizing: border-box;
+    }
+
+    /* Escondemos elementos que quitan espacio en móvil */
+    .watermark {
+        width: 80px;
+        opacity: 0.1;
+    }
+
+    /* El QR ahora flotará al centro cuando se active para no estorbar */
+    .qr-container {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.9);
+        bottom: auto;
+        right: auto;
+        z-index: 2000;
+    }
+
+    /* Ajuste del Ticker inferior */
+    .ticker-wrapper {
+        height: 40px;
+    }
+    .ticker-content span {
+        font-size: 0.9rem;
+    }
+
+    /* Reloj local sutil */
+    .real-time-clock {
+        font-size: 1rem;
+        top: 5px;
+        left: 5px;
+    }
+}
