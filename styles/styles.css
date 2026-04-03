@@ -1,0 +1,250 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Creepster&family=Luckiest+Guy&family=Bangers&display=swap');
+
+:root {
+    --bg-color: #0f172a;
+    --text-main: #f8fafc;
+    --accent: #38bdf8;
+    --danger: #ff0000;
+    --success: #22c55e;
+    --warning: #f59e0b;
+    --prep: #6366f1;
+}
+
+body[data-theme="mk"] { --bg-color: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%); --accent: #38bdf8; }
+body[data-theme="op"] { --bg-color: radial-gradient(circle at center, #2563eb 0%, #1e40af 100%); --accent: #fbce07; }
+body[data-theme="pk"] { --bg-color: radial-gradient(circle at center, #3b82f6 0%, #1d4ed8 100%); --accent: #ffcb05; }
+body[data-theme="db"] { --bg-color: radial-gradient(circle at center, #333333 0%, #1a1a1a 100%); --accent: #ff8a00; }
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: var(--bg-color); 
+    color: var(--text-main);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    transition: all 0.5s ease;
+}
+
+.hide-time { display: none !important; }
+
+#progress-container {
+    position: fixed; top: 0; left: 0; width: 100%; height: 12px;
+    background: rgba(255, 255, 255, 0.1); z-index: 2000;
+}
+
+#progress-bar {
+    width: 100%; height: 100%; background: var(--accent);
+    box-shadow: 0 0 15px var(--accent); transition: width 1s linear;
+}
+
+.container { display: flex; flex-direction: column; align-items: center; text-align: center; width: 90vw; }
+
+#round-display { font-size: 4rem; color: var(--accent); margin: 0; text-transform: uppercase; }
+
+#timer-display {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 18rem; 
+    font-weight: bold; 
+    margin: 10px 0;
+    font-variant-numeric: tabular-nums;
+    text-shadow: 0 0 10px rgba(255,255,255,0.3), 0 0 40px var(--accent);
+    letter-spacing: -5px;
+}
+
+#timer-display.timer-alerta {
+    color: var(--danger) !important;
+    text-shadow: 0 0 40px var(--danger) !important;
+    animation: saltarAlerta 0.5s ease-in-out infinite;
+}
+
+@keyframes saltarAlerta {
+    0%, 100% { transform: scale(1); text-shadow: 0 0 20px var(--danger); }
+    50% { transform: scale(1.05); text-shadow: 0 0 60px var(--danger), 0 0 100px var(--danger); }
+}
+
+.controls { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; justify-content: center; }
+
+button { 
+    padding: 12px 24px; 
+    font-weight: bold; 
+    font-size: 1.1rem;
+    border-radius: 8px; 
+    border: 1px solid rgba(255,255,255,0.1); 
+    cursor: pointer; 
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.2);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+button:hover { 
+    filter: brightness(1.2); 
+    transform: translateY(-3px); 
+    box-shadow: 0 6px 12px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.3);
+}
+
+button:active {
+    transform: translateY(1px);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1);
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.main-btn { background: var(--success); color: white; }
+.danger-btn { background: var(--danger); color: white; }
+.warning-btn { background: var(--warning); color: white; }
+.secondary-btn { background: var(--accent); color: black; }
+.prep-btn { background: var(--prep); color: white; }
+
+#final-msg {
+    display: none; font-size: 8rem; margin: 20px 0; min-height: 12rem;
+    align-items: center; justify-content: center;
+}
+
+.show-final { display: flex !important; animation: impact-in 0.6s cubic-bezier(0.17, 0.89, 0.32, 1.49); }
+
+@keyframes impact-in {
+    0% { transform: scale(0.3); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.ticker-wrapper { 
+    position: fixed; bottom: 0; width: 100%; background: black; 
+    padding: 10px 0; overflow: hidden; border-top: 2px solid var(--accent); 
+}
+.ticker-content { display: flex; animation: ticker-move 30s linear infinite; }
+.ticker-content span { white-space: nowrap; padding-right: 50px; font-size: 1.2rem; font-weight: bold; }
+@keyframes ticker-move { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+.watermark { width: 180px; opacity: 0.2; margin-top: 10px; }
+.fs-fixed { position: fixed; top: 20px; right: 20px; opacity: 0.5; }
+.fs-fixed:hover { opacity: 1; }
+
+#final-msg {
+    display: none; 
+    font-size: 9rem; 
+    margin: 20px 0;
+    text-align: center;
+    min-height: 12rem;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    z-index: 10;
+}
+
+body[data-theme="mk"] #final-msg { 
+    font-family: 'Creepster', cursive; 
+    color: #ff0000; 
+    text-shadow: 5px 5px 0px #000, 0 0 30px #ff0000; 
+}
+
+body[data-theme="op"] #final-msg { 
+    font-family: 'Luckiest Guy', cursive; 
+    color: #fbce07; 
+    -webkit-text-stroke: 4px #000; 
+    text-shadow: 8px 8px 0px #c8102e; 
+}
+
+body[data-theme="pk"] #final-msg { 
+    font-family: 'Luckiest Guy', cursive; 
+    color: #ffcb05; 
+    -webkit-text-stroke: 5px #2a75bb; 
+    text-shadow: 8px 8px 0px #3c5aa6; 
+}
+
+body[data-theme="db"] #final-msg { 
+    font-family: 'Bangers', cursive; 
+    color: #ff8a00; 
+    -webkit-text-stroke: 2px #000;
+    text-shadow: 4px 4px 0px #ff0000, 8px 8px 0px #000, 0 0 40px #ffea00; 
+}
+
+/* Panel de Admin Ticker */
+.ticker-admin { 
+    margin-top: 20px; 
+    display: flex; 
+    gap: 10px; 
+    align-items: center;
+}
+
+#ticker-input, #qr-input { 
+    padding: 12px; 
+    border-radius: 8px; 
+    border: 1px solid rgba(255,255,255,0.2); 
+    width: 400px; 
+    background: rgba(0,0,0,0.5); 
+    color: white; 
+    font-family: inherit;
+}
+
+#ticker-input:focus, #qr-input:focus { outline: 2px solid var(--accent); }
+
+/* Reloj de hora local sutil en la esquina superior izquierda */
+.real-time-clock {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    font-size: 1.5rem;
+    color: rgba(255, 255, 255, 0.4); 
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 2px;
+    pointer-events: none; 
+    z-index: 100;
+}
+
+/* Alerta Semáforo Amarillo (Últimos 5 minutos) */
+#timer-display.timer-warning {
+    color: var(--warning) !important;
+    text-shadow: 0 0 20px var(--warning) !important;
+    transition: color 0.5s, text-shadow 0.5s;
+}
+
+/* Estilos del Código QR */
+.qr-container {
+    position: fixed;
+    bottom: 60px; /* Para que quede justo arriba del ticker */
+    right: 20px;
+    background: rgba(0, 0, 0, 0.85);
+    padding: 15px;
+    border-radius: 12px;
+    border: 2px solid var(--accent);
+    text-align: center;
+    z-index: 100;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+
+.qr-container.hidden {
+    display: none;
+}
+
+.qr-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: var(--accent);
+    font-family: 'Segoe UI', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#qr-code-box img {
+    margin: 0 auto;
+    border-radius: 5px;
+    border: 5px solid white; /* Borde blanco para que el celular lo lea más rápido */
+}
+#qr-code-box {
+    background: white;
+    padding: 10px;
+    display: inline-block;
+    border-radius: 8px;
+}

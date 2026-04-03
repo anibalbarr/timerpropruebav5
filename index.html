@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TCG Timer Pro MYL - Final Edition</title>
+    <link rel="manifest" href="./manifest.json">
+    <link rel="stylesheet" href="./styles/styles.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Luckiest+Guy&family=Bangers&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  </head>
+  <body data-theme="mk">
+    <div id="progress-container">
+      <div id="progress-bar"></div>
+    </div>
+
+    <div class="container">
+      <div class="time-config">
+        <label for="duration-select">TIEMPO DE RONDA:</label>
+        <select id="duration-select">
+          <option value="0.4166">(PRUEBA 25s)</option>
+          <option value="6">(PRUEBA 6 min)</option>
+          <option value="20">20 Minutos</option>
+          <option value="30">30 Minutos</option>
+          <option value="35">35 Minutos</option>
+          <option value="40">40 Minutos</option>
+          <option value="45" selected>45 Minutos</option>
+          <option value="50">50 Minutos</option>
+          <option value="60">60 Minutos</option>
+        </select>
+      </div>
+
+      <h2 id="round-display">RONDA 1</h2>
+
+      <div class="timer-wrapper">
+        <main id="timer-display">45:00</main>
+        <div id="final-msg">RONDA TERMINADA</div>
+      </div>
+
+      <div class="theme-selector-container">
+        <select id="theme-select">
+          <option value="mk">Mitos y Leyendas</option>
+          <option value="op">One Piece Card Game</option>
+          <option value="pk">Pokemon</option>
+          <option value="db">Dragon Ball</option>
+        </select>
+      </div>
+
+      <section class="controls">
+        <button id="prep-btn" class="prep-btn">
+          🪑 PREPARAR MESAS (2 min)
+        </button>
+        <button id="start-btn" class="main-btn">INICIAR RONDA</button>
+        <button id="pause-btn" class="main-btn" disabled>PAUSAR</button>
+        <button id="sudden-death-btn" class="warning-btn">
+          MUERTE SÚBITA (+5 min)
+        </button>
+        <button id="reset-btn" class="danger-btn">REINICIAR</button>
+        <button id="next-round-btn" class="secondary-btn">
+          SIGUIENTE RONDA
+        </button>
+      </section>
+
+      <div class="ticker-admin">
+        <input type="text" id="ticker-input" placeholder="Ej: agregar informacion extra..." />
+        <button id="update-ticker-btn" class="secondary-btn">Actualizar Ticker</button>
+      </div>
+
+      <div class="qr-admin ticker-admin">
+        <input type="text" id="qr-input" placeholder="Pega el link de los pareos aquí (ej: torneosmyl.cl/...)" />
+        <button id="update-qr-btn" class="secondary-btn">Generar QR</button>
+        <button id="hide-qr-btn" class="danger-btn">Ocultar QR</button>
+      </div>
+
+      <div id="status-msg">ESPERANDO INICIO...</div>
+
+      <img
+        src="./styles/img/Logo-Full-Color.png"
+        class="watermark"
+        alt="Logo"
+      />
+    </div>
+
+    <button id="fullscreen-btn" class="fs-fixed">⛶ Pantalla Completa</button>
+
+    <div id="real-time-clock" class="real-time-clock">00:00</div>
+
+    <div id="qr-container" class="qr-container hidden">
+       <div class="qr-title">👇 ESCANEA TU MESA 👇</div>
+       <div id="qr-code-box"></div>
+    </div>
+
+    <div id="ticker-bar" class="ticker-wrapper">
+      <div id="ticker-text-container" class="ticker-content">
+        <span>📢 ¡BIENVENIDOS AL TORNEO! • RECUERDEN REPORTAR AL TERMINAR LA RONDA • 🛡️ APROVECHA DESCUENTOS BLACKFRIDAY EN NUESTRA WEB • 🃏 PRÓXIMO TORNEO: VIERNES 19:30 HRS • JUEGUEN LIMPIO Y DIVIÉRTANSE • 📢 ¡GRACIAS POR PREFERIRNOS! • </span>
+        <span>📢 ¡BIENVENIDOS AL TORNEO! • RECUERDEN REPORTAR AL TERMINAR LA RONDA • 🛡️ APROVECHA DESCUENTOS BLACKFRIDAY EN NUESTRA WEB • 🃏 PRÓXIMO TORNEO: VIERNES 19:30 HRS • JUEGUEN LIMPIO Y DIVIÉRTANSE • 📢 ¡GRACIAS POR PREFERIRNOS! • </span>
+      </div>
+    </div>
+
+    <audio id="audio-mk-start-1" src="./styles/sounds/MYL/inicio-ronda-1.mp3"></audio>
+    <audio id="audio-mk-start-2" src="./styles/sounds/MYL/inicio-ronda-2.mp3"></audio>
+    <audio id="audio-mk-start-3" src="./styles/sounds/MYL/inicio-ronda-3.mp3"></audio>
+    <audio id="audio-mk-start-4" src="./styles/sounds/MYL/inicio-ronda-4.mp3"></audio>
+    <audio id="audio-mk-start-5" src="./styles/sounds/MYL/inicio-ronda-5.mp3"></audio>
+    <audio id="audio-mk-start-6" src="./styles/sounds/MYL/inicio-ronda-6.mp3"></audio>
+    <audio id="audio-mk-20sec" src="./styles/sounds/MYL/aviso-20-segundos.mp3"></audio>
+    <audio id="audio-mk-end" src="./styles/sounds/MYL/finish-him-sound-effect.mp3"></audio>
+    <audio id="audio-mk-sudden" src="./styles/sounds/MYL/suddendeath.mp3"></audio>
+
+    <audio id="audio-op-start-1" src="./styles/sounds/OP/op_ronda1kaizoku.mp3"></audio>
+    <audio id="audio-op-start-2" src="./styles/sounds/OP/op_ronda2.mp3"></audio>
+    <audio id="audio-op-start-3" src="./styles/sounds/OP/op_ronda3.mp3"></audio>
+    <audio id="audio-op-start-4" src="./styles/sounds/OP/op_ronda4.mp3"></audio>
+    <audio id="audio-op-start-5" src="./styles/sounds/OP/inicio-ronda-5.mp3"></audio>
+    <audio id="audio-op-start-6" src="./styles/sounds/OP/inicio-ronda-6.mp3"></audio>
+    <audio id="audio-op-20sec" src="./styles/sounds/OP/op_20seg.mp3"></audio>
+    <audio id="audio-op-end" src="./styles/sounds/OP/op_finderonda.mp3"></audio>
+    <audio id="audio-op-sudden" src="./styles/sounds/OP/sudden-alert-one-piece.mp3"></audio>
+
+    <audio id="audio-pk-start-1" src="./styles/sounds/PK/pk_ronda1.mp3"></audio>
+    <audio id="audio-pk-start-2" src="./styles/sounds/PK/pk_ronda222.mp3"></audio>
+    <audio id="audio-pk-start-3" src="./styles/sounds/PK/pk_ronda3.mp3"></audio>
+    <audio id="audio-pk-start-4" src="./styles/sounds/PK/pk_ronda1.mp3"></audio>
+    <audio id="audio-pk-start-5" src="./styles/sounds/PK/pk_ronda222.mp3"></audio>
+    <audio id="audio-pk-start-6" src="./styles/sounds/PK/pk_ronda3.mp3"></audio>
+    <audio id="audio-pk-20sec" src="./styles/sounds/PK/pk_20seg.mp3"></audio>
+    <audio id="audio-pk-end" src="./styles/sounds/PK/pk_ronda33end.mp3"></audio>
+    <audio id="audio-pk-sudden" src="./styles/sounds/PK/pk_+5.mp3"></audio>
+
+    <audio id="audio-db-start-1" src="./styles/sounds/DB/db_ronda1.mp3"></audio>
+    <audio id="audio-db-start-2" src="./styles/sounds/DB/db_ronda2.mp3"></audio>
+    <audio id="audio-db-start-3" src="./styles/sounds/DB/db_ronda1end.mp3"></audio>
+    <audio id="audio-db-start-4" src="./styles/sounds/DB/db_ronda1.mp3"></audio>
+    <audio id="audio-db-start-5" src="./styles/sounds/DB/db_ronda2.mp3"></audio>
+    <audio id="audio-db-start-6" src="./styles/sounds/DB/db_rond3.mp3"></audio>
+    <audio id="audio-db-20sec" src="./styles/sounds/DB/db_20seg.mp3"></audio>
+    <audio id="audio-db-end" src="./styles/sounds/DB/db_rond3.mp3"></audio>
+    <audio id="audio-db-sudden" src="./styles/sounds/DB/db_5mas.mp3"></audio>
+
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('./sw.js')
+            .then(reg => console.log('Service Worker registrado con éxito'))
+            .catch(err => console.log('Error al registrar Service Worker', err));
+        });
+      }
+    </script>
+    <script src="./styles/script.js"></script>
+  </body>
+</html>
